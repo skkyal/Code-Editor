@@ -1,0 +1,103 @@
+.App{
+  height:100%;
+  width:100%;
+  margin:0;
+  padding:0;
+}
+body{
+  height:100%;
+  width:100%;
+  margin:0;
+  padding:0;
+  background-color: rgb(36, 35, 35) ;
+}
+.navbar{
+  background-color: rgb(236, 235, 235);
+  margin:0;
+  padding: 15px;
+  font-size: 30px;
+}
+.nav-button{
+  float: right;
+  font-size: 30px;
+}
+.editor-container{
+  background-color: rgb(36, 35, 35);
+  /*padding: 10px 5px;
+  display: flex;
+  justify-content: space-around;*/
+}
+.editor-heading{
+  padding:5px 20px;
+  color:white;
+  border-radius: 20px 20px 0 0;
+  background-color:  rgb(0, 9, 36);
+}
+/*.editor{
+  width:32.5%;
+}*/
+.frame{
+  background-color: rgb(36, 35, 35) ;
+  padding-top:5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+iframe{
+  background-color:white;
+  width:98%;
+  height:50vh;
+  border-width: 0;
+}
+.refresh{
+  float:right;
+  cursor: pointer;
+}
+
+
+
+
+
+.panel-container {
+  display: flex;
+  min-height: 300px;
+  margin: 10px;
+}
+
+.panel {
+  background: rgb(36, 35, 35);
+  /*border: 1px solid gray;*/
+  min-width: 150px;
+}
+.panel:first-child {
+
+}
+
+.resizer {
+  width: 8px;
+  background:rgb(36, 35, 35);
+  position: relative;
+  cursor: col-resize;
+  z-index: 20;
+  flex-shrink: 0;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */ 
+}
+
+.resizer::after,
+.resizer::before {
+  content: "";
+  border-left: 1px solid white;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-100%);
+  right: 0;
+  display: inline-block;
+  height: 20px;
+  margin: 0 2px;
+}
+.resizer::before {
+  left: 0;
+}
