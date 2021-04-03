@@ -79,7 +79,7 @@ const Specific = () => {
     };
 
     return (
-      <div>
+      <div className="page-container">
         <Nav onSave={onSave} />
         <Editor html={html} css={css} js={js} setHtml={setHtml} setCss={setCss} setJs={setJs} />
         <div className="frame">

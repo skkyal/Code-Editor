@@ -9,8 +9,11 @@ body{
   width:100%;
   margin:0;
   padding:0;
-  background-color: rgb(36, 35, 35) ;
+  
 }
+
+
+/*navbar*/
 .navbar{
   background-color: rgb(236, 235, 235);
   margin:0;
@@ -21,6 +24,13 @@ body{
   float: right;
   font-size: 30px;
 }
+
+/*editor main container*/
+.page-container{
+  background-color: rgb(36, 35, 35) ;
+}
+
+/*Code Editor*/
 .editor-container{
   background-color: rgb(36, 35, 35);
   /*padding: 10px 5px;
@@ -33,9 +43,15 @@ body{
   border-radius: 20px 20px 0 0;
   background-color:  rgb(0, 9, 36);
 }
+.refresh{
+  float:right;
+  cursor: pointer;
+}
 /*.editor{
   width:32.5%;
 }*/
+
+/*frame*/
 .frame{
   background-color: rgb(36, 35, 35) ;
   padding-top:5px;
@@ -49,15 +65,8 @@ iframe{
   height:50vh;
   border-width: 0;
 }
-.refresh{
-  float:right;
-  cursor: pointer;
-}
 
-
-
-
-
+/*resizing divs*/
 .panel-container {
   display: flex;
   min-height: 300px;
@@ -100,4 +109,82 @@ iframe{
 }
 .resizer::before {
   left: 0;
+}
+
+
+/*Login*/
+.login-main{
+  display: flex;
+  min-height:100vh;
+  align-items: center;
+  justify-content: flex-start;
+}
+.typewriter-header{
+  display: block;
+  font-size: 6rem;
+  padding: 5px 5px 5px 40px;
+}
+.typewriter-text{
+  display: block;
+  font-size: 2rem;
+  padding: 5px 5px 5px 40px;
+}
+.logo-top{
+  position: absolute;
+  top:10px;
+  left:10px;
+  font-size: 30px;
+}
+
+/*loginform*/
+.login-form-container{
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 80px auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.login-form{
+  align-content: center;
+  display:block;
+  padding:10px;
+}
+.form-detail{
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form-button{
+  text-transform: uppercase;
+  outline: 0;
+  background: #031b4e;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form-button:hover,.form-button:active,.form-button:focus {
+  background: #021030;
+}
+
+.login-message{
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.login-message a {
+  color: #031b4e;
+  text-decoration: none;
 }

@@ -1,6 +1,7 @@
 const router=require('express').Router();
 const Code=require('../models/code');
 
+//save a entry
 router.post('/',async(req,res)=>{
     //console.log(req.body);
     const {html,css,js} = req.body;
@@ -16,7 +17,15 @@ router.post('/',async(req,res)=>{
         res.status(400).send({"message":"Error"});
     }
 });
+//get all entry
+router.get('/',async(req,res)=>{
+    await Code.find({},function(err,doc){
+        if(err) return res.status(400).send({"message":"Error"});
+        else res.status(201).send(doc);
+    });
+})
 
+//get specific id
 router.get('/:id',async(req,res)=>{
     await Code.findOne({_id:req.params.id},function(err,doc){
         if(err) return res.status(400).send({"message":"Error"});
@@ -25,7 +34,7 @@ router.get('/:id',async(req,res)=>{
     });
 });
 
-
+//update
 router.put('/:id',async(req,res)=>{
     await Code.findByIdAndUpdate(req.params.id,req.body,{new: true, useFindAndModify:false},function(err,doc){
         if(err) return res.status(400).send({"message":"Error"});

@@ -17,7 +17,9 @@ con.on('open',function(){
     console.log('connected');
 });
 
-
+app.get('*',(req,res)=>{
+    res.status(404).send();
+})
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);
 })
