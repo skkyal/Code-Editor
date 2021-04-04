@@ -1,6 +1,7 @@
 import React from 'react'
 import Typewriter from '../components/Typewriter'
 import LoginForm from '../components/LoginForm'
+import Footer from '../components/Footer'
 
 const Login = () => {
     const header="Code Editor";
@@ -17,6 +18,8 @@ const Login = () => {
                 <Typewriter content={msg} classText="typewriter-text" initialTime={header.length*speed} speed={speed} />
             </div>
             <LoginForm />
+            <Footer/>
+            
         </div>
     )
 }

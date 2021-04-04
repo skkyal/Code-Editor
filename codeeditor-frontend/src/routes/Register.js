@@ -1,6 +1,8 @@
 import React from 'react'
 import Typewriter from '../components/Typewriter'
 import RegisterForm from '../components/RegisterForm'
+import Footer from '../components/Footer'
+
 const Register = () => {
     const header="Code Editor";
     const msg="A platform to Code and Share it with friends."
@@ -16,6 +18,7 @@ const Register = () => {
                 <Typewriter content={msg} classText="typewriter-text" initialTime={header.length*speed} speed={speed} />
             </div>
             <RegisterForm />
+            <Footer />
         </div>
     )
 }

@@ -5,8 +5,10 @@ const cors=require('cors');
 const app=express();
 app.use(cors());
 app.use(express.json());
+require('dotenv').config();
 
 app.use('/editor',require('./routes/editor'));
+app.use('/user',require('./routes/user'));
 
 const port = process.env.PORT || "8000";
 
