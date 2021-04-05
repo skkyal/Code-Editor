@@ -6,7 +6,6 @@ const {loginValidation,registerValidation} =require('../validation/validation');
 const otpGenerate = require('../validation/otpgenerate');
 
 let otp;
-let email;
 
 /*login*/
 router.post('/login', async (req,res)=>{

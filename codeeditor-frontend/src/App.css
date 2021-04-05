@@ -90,9 +90,9 @@ iframe{
   /*border: 1px solid gray;*/
   min-width: 150px;
 }
-.panel:first-child {
+/*.panel:first-child {
 
-}
+}*/
 
 .resizer {
   width: 8px;

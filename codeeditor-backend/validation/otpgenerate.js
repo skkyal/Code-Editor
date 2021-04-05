@@ -8,8 +8,8 @@ module.exports = function(email){
         service : 'Gmail',
         
         auth: {
-          user: 'auth.authenticate12@gmail.com',
-          pass: 'Auth@2000',
+          user:process.env.ACCEMAIL,
+          pass: process.env.ACCPASS,
         }
         
     });
