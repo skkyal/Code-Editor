@@ -1,8 +1,8 @@
 const router=require('express').Router();
 const Code=require('../models/code');
-
+const verify=require('../middlewares/verifyToken')
 //save a entry
-router.post('/',async(req,res)=>{
+router.post('/',verify,async(req,res)=>{
     //console.log(req.body);
     const {html,css,js} = req.body;
     const code =new Code({
@@ -18,7 +18,7 @@ router.post('/',async(req,res)=>{
     }
 });
 //get all entry
-router.get('/',async(req,res)=>{
+router.get('/',verify,async(req,res)=>{
     await Code.find({},function(err,doc){
         if(err) return res.status(400).send({"message":"Error"});
         else res.status(201).send(doc);
@@ -26,7 +26,7 @@ router.get('/',async(req,res)=>{
 })
 
 //get specific id
-router.get('/:id',async(req,res)=>{
+router.get('/:id',verify,async(req,res)=>{
     await Code.findOne({_id:req.params.id},function(err,doc){
         if(err) return res.status(400).send({"message":"Error"});
         else if(doc==null) return res.status(404).send();
@@ -35,7 +35,7 @@ router.get('/:id',async(req,res)=>{
 });
 
 //update
-router.put('/:id',async(req,res)=>{
+router.put('/:id',verify,async(req,res)=>{
     await Code.findByIdAndUpdate(req.params.id,req.body,{new: true, useFindAndModify:false},function(err,doc){
         if(err) return res.status(400).send({"message":"Error"});
         else if(doc==null) return res.status(404).send();

@@ -2,12 +2,21 @@ import React from 'react'
 import Editor from '../components/Editor'
 import Nav from '../components/Nav'
 import {useState,useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 
 const MainEditor = () => {
+    const history=useHistory();
+
     const [code, setCode] = useState(``);
     const [js, setJs] = useState('');
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
+
+    useEffect(() => {
+        if(localStorage.getItem('auth-token')===null){
+            history.push('/login');
+       }
+    }, [history]);
 
     useEffect(() => {
         const code=`
@@ -35,11 +44,13 @@ const MainEditor = () => {
                 method:'POST',
                 headers:{
                 'Content-type': 'application/json',
+                'auth-token':localStorage.getItem('auth-token')
                 },
                 body: JSON.stringify(req)
             });
             const data = await res.json();
             console.log(data);
+            history.push(`/user/${data.code}`)
         }catch(err){
         console.log(err);
         }

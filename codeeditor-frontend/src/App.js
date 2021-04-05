@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <Route path="/user/:_id" exact component={Specific} />
-        <Route path="/" exact component={MainEditor} />
+        <Route path="/editor" exact component={MainEditor} />
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
       </div>

@@ -1,7 +1,7 @@
 import Editor from '../components/Editor'
 import Nav from '../components/Nav'
 import {useState,useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams,useHistory} from 'react-router-dom'
 import React from 'react'
 
 const Specific = () => {
@@ -11,6 +11,12 @@ const Specific = () => {
     const [css, setCss] = useState('');
     
     const {_id}=useParams();
+    const history=useHistory();
+
+    useEffect(() => {
+        if(localStorage.getItem('auth-token')===null)
+             history.push('/login');
+     }, [history]);
 
     useEffect(() => {
       const code=`
@@ -35,7 +41,13 @@ const Specific = () => {
     useEffect(() => {
         const fetchCode = async()=>{
             try{
-                const res = await fetch('http://localhost:8000/editor/'+_id);
+                const res = await fetch('http://localhost:8000/editor/'+_id,{
+                    method:'GET',
+                    headers:{
+                    'Content-type': 'application/json',
+                    'auth-token':localStorage.getItem('auth-token')
+                    }
+                });
                 if(res.ok){
                     const data = await res.json();
                     console.log(data);
@@ -62,6 +74,7 @@ const Specific = () => {
                 method:'PUT',
                 headers:{
                   'Content-type': 'application/json',
+                  'auth-token':localStorage.getItem('auth-token')
                 },
                 body: JSON.stringify(req)
             });
