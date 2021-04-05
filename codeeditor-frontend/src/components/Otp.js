@@ -19,7 +19,7 @@ const Otp = ({email,setRegister}) => {
             });
             if(res.ok){
                 setRegister(false);
-                history.push('/editor');
+                history.push('/user');
             }
             const data = await res.json();
             alert(data.message);

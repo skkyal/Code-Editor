@@ -48,23 +48,26 @@ const Specific = () => {
                     'auth-token':localStorage.getItem('auth-token')
                     }
                 });
+                const data = await res.json();
+                console.log(data);
                 if(res.ok){
-                    const data = await res.json();
-                    console.log(data);
-
                     setHtml(data.html);
                     setJs(data.js);
                     setCss(data.css);
                 }
                 else{
-                    alert('Error');
+                    alert(data.message);
+                    if(data.message==="Invalid Token"){
+                        history.push('/login');
+                        localStorage.removeItem('auth-token');
+                    }
                 }
             }catch(err){
                 console.log(err);
             }
         };
         fetchCode();
-    }, [_id]);
+    }, [_id,history]);
   
 
     const onSave=async()=>{
@@ -91,9 +94,13 @@ const Specific = () => {
         }
     };
 
+    const onDelete=async()=>{
+        console.log('delete');
+    }
+
     return (
       <div className="page-container">
-        <Nav onSave={onSave} />
+        <Nav onSave={onSave} isDelete={true} isIcon={true} onDelete={onDelete} />
         <Editor html={html} css={css} js={js} setHtml={setHtml} setCss={setCss} setJs={setJs} />
         <div className="frame">
           <iframe

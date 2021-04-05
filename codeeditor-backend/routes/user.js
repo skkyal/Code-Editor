@@ -8,6 +8,7 @@ const otpGenerate = require('../validation/otpgenerate');
 let otp;
 let email;
 
+/*login*/
 router.post('/login', async (req,res)=>{
     //validation
     const {error} = loginValidation(req.body);

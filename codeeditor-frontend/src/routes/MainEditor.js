@@ -15,7 +15,7 @@ const MainEditor = () => {
     useEffect(() => {
         if(localStorage.getItem('auth-token')===null){
             history.push('/login');
-       }
+        }
     }, [history]);
 
     useEffect(() => {
@@ -50,14 +50,22 @@ const MainEditor = () => {
             });
             const data = await res.json();
             console.log(data);
-            history.push(`/user/${data.code}`)
+            if(res.ok){
+                history.push(`/user/${data.code}`);
+            }
+            else{
+                if(data.message==="Invalid Token")
+                history.push('/login');
+                localStorage.removeItem('auth-token');
+            }
+            
         }catch(err){
-        console.log(err);
+            console.log(err);
         }
     };
     return (
         <div className="page-container">
-            <Nav onSave={onSave} />
+            <Nav onSave={onSave} isDelete={false} isIcon={true} />
             <Editor html={html} css={css} js={js} setHtml={setHtml} setCss={setCss} setJs={setJs} />
             <div className="frame">
             <iframe

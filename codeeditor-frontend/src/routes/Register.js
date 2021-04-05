@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 import Typewriter from '../components/Typewriter'
 import RegisterForm from '../components/RegisterForm'
 import Footer from '../components/Footer'
@@ -7,6 +8,14 @@ import Otp from '../components/Otp'
 const Register = () => {
     const [register, setRegister] = useState(false);
     const [email, setEmail] = useState('');
+
+    const history=useHistory();
+
+    useEffect(() => {
+        if(localStorage.getItem('auth-token')){
+            history.push('/user');
+        }
+    }, [history]);
 
     const header="Code Editor";
     const msg="A platform to Code and Share it with friends."

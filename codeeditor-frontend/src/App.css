@@ -31,6 +31,11 @@ html{
   float: right;
   font-size: 30px;
 }
+.nav-icons{
+  color:#021030;
+  padding:0 10px;
+  cursor: pointer;
+}
 
 /*editor main container*/
 .page-container{

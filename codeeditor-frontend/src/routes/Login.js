@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 import Typewriter from '../components/Typewriter'
 import LoginForm from '../components/LoginForm'
 import Footer from '../components/Footer'
@@ -11,6 +12,14 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [register, setRegister] = useState(false);
+
+    const history=useHistory();
+
+    useEffect(() => {
+        if(localStorage.getItem('auth-token')){
+            history.push('/user');
+        }
+    }, [history]);
 
     return (
         <div className="login-main">

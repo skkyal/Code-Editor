@@ -22,7 +22,7 @@ const LoginForm = ({email,setEmail,setRegister}) => {
                 if(data.message)
                 setRegister(true);
                 else{
-                    history.push('/editor');
+                    history.push('/user');
                     localStorage.setItem('auth-token',data.token);
                 }
             }
