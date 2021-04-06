@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
 
 const RegisterForm = ({setRegister,email,setEmail}) => {
     const [name,setName] = useState('');
@@ -30,6 +31,7 @@ const RegisterForm = ({setRegister,email,setEmail}) => {
                 <input className="form-detail" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
                 <input className="form-detail" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
                 <button className="form-button" onClick={onSubmit}>Register</button>
+                <p className="login-message">Have account? <Link to="/login">Log In</Link></p>
             </form>
         </div>
     )

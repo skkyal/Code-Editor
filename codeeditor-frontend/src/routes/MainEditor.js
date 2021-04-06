@@ -27,10 +27,15 @@ const MainEditor = () => {
     useEffect(() => {
         if(localStorage.getItem('auth-token')===null){
             history.push('/login');
+            return;
         }
-        if(location.state)
+        if(location.state && location.state.title!=="")
         setTitle(location.state.title);
         else setTitle(random);
+
+        return ()=>{
+            setTitle('');
+        }
     }, [history,location]);
 
     useEffect(() => {
@@ -50,6 +55,13 @@ const MainEditor = () => {
             setCode(code);
             }, 250);
             //console.log(timeout);
+        return ()=>{
+            setHtml('');
+            setCss('');
+            setJs('');
+            setTitle('');
+            setCode('');
+        }
     }, [html,css,js,title,setCode]);
 
     const onSave=async()=>{

@@ -14,10 +14,6 @@ const Specific = () => {
     const {_id}=useParams();
     const history=useHistory();
 
-    useEffect(() => {
-        if(localStorage.getItem('auth-token')===null)
-             history.push('/login');
-     }, [history]);
 
     useEffect(() => {
       const code=`
@@ -36,11 +32,23 @@ const Specific = () => {
           setCode(code);
          }, 250);
          //console.log(timeout);
+         return ()=>{
+            setHtml('');
+            setCss('');
+            setJs('');
+            setTitle('');
+            setCode('');
+        }
     }, [html,css,js,title,setCode]);
 
 
     
     useEffect(() => {
+
+        if(localStorage.getItem('auth-token')===null){
+            history.push('/login');
+            return;
+        }
         const fetchCode = async()=>{
             try{
                 const res = await fetch('http://localhost:8000/editor/'+_id,{

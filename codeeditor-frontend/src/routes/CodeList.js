@@ -8,14 +8,12 @@ const CodeList = () => {
     const [list, setlist] = useState([]);
     const [title, setTitle] = useState('');
     const [isTitle, setIstitle] =useState(false);
-
+    
     useEffect(() => {
         if(localStorage.getItem('auth-token')===null){
             history.push('/login');
+            return;
         }
-    }, [history]);
-    
-    useEffect(() => {
        const fetchList = async()=>{
            try{
                const res=await fetch('http://localhost:8000/editor',{
@@ -64,15 +62,17 @@ const CodeList = () => {
                         </span>:null
                     }
                 </div>
-                <div className="codelist-saved">Saved</div>
+                <div className="codelist-saved">Saved Codes</div>
                 
                {    
                     list.length!==0?
                     <div className="codelist-list">
                     {list.map((item)=>
-                        <div className="codelist-item" key={item._id} >
-                            <Link to ={`/user/${item._id}`} style={{textDecoration:'none',color:'white'}}>{item.title}</Link>
-                        </div>
+                        <Link to ={`/user/${item._id}`} key={item._id} style={{textDecoration:'none',color:'white'}}>
+                            <div className="codelist-item" >
+                                {item.title}
+                            </div>
+                        </Link>
                     )}
                     </div>:
                     <div className="codelist-item-message">No Saved Code</div>

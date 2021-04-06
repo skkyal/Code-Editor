@@ -5,7 +5,7 @@ class ResizablePanels extends React.Component {
   
     constructor () {
       super()
-      
+
       this.state = {
         isDragging: false,
         panels: [300, window.innerWidth*0.32, window.innerWidth*0.32]

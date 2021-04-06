@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react'
 
 const Typewriter = ({content,classText,initialTime,speed,icon}) => {
     const [text, setText] = useState('');
-
     let i=0;
     function typeWriter() {
         if (i < content.length) {
@@ -12,7 +11,12 @@ const Typewriter = ({content,classText,initialTime,speed,icon}) => {
         }
     };
     useEffect(() => {
-        setTimeout(typeWriter, initialTime);
+        const timer=setTimeout(typeWriter, initialTime);
+        return () => {
+          // executed when unmount
+          clearTimeout(timer);
+          setText('');
+        }
     }, [])
 
     return (
