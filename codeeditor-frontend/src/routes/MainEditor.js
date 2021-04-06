@@ -2,26 +2,42 @@ import React from 'react'
 import Editor from '../components/Editor'
 import Nav from '../components/Nav'
 import {useState,useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
+import {useHistory,useLocation} from 'react-router-dom'
 
 const MainEditor = () => {
     const history=useHistory();
+    const location=useLocation();
 
-    const [code, setCode] = useState(``);
+    const [code, setCode] = useState('');
     const [js, setJs] = useState('');
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
 
+    const [title, setTitle] = useState('');
+
+    const random=()=>{
+        var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var result = '';
+        for ( var i = 0; i <5; i++ ) {
+            result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+        }
+        return result;
+    };
+    
     useEffect(() => {
         if(localStorage.getItem('auth-token')===null){
             history.push('/login');
         }
-    }, [history]);
+        if(location.state)
+        setTitle(location.state.title);
+        else setTitle(random);
+    }, [history,location]);
 
     useEffect(() => {
         const code=`
         <html>
         <head>
+            <title>${title}</title>
             <style>${css}</style>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         </head>
@@ -34,10 +50,10 @@ const MainEditor = () => {
             setCode(code);
             }, 250);
             //console.log(timeout);
-    }, [html,css,js,setCode]);
+    }, [html,css,js,title,setCode]);
 
     const onSave=async()=>{
-        const req={html,js,css};
+        const req={html,js,css,title};
 
         try{
         const res = await fetch('http://localhost:8000/editor',{

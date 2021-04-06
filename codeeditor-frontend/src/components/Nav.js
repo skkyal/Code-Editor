@@ -9,8 +9,8 @@ const Nav = ({onSave,onDelete,isDelete,isIcon}) => {
             </span>
             {
                 isIcon?
-                <div className="nav-button" onClick={()=>onSave()}>
-                    <span className="nav-icons">
+                <div className="nav-button" >
+                    <span className="nav-icons" onClick={()=>onSave()}>
                         <i className="fas fa-save" ></i>
                     </span>
                     {

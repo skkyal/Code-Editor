@@ -9,6 +9,7 @@ const Specific = () => {
     const [js, setJs] = useState('');
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
+    const [title, setTitle] = useState('');
     
     const {_id}=useParams();
     const history=useHistory();
@@ -22,6 +23,7 @@ const Specific = () => {
       const code=`
       <html>
       <head>
+          <title>${title}</title>
           <style>${css}</style>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       </head>
@@ -34,7 +36,7 @@ const Specific = () => {
           setCode(code);
          }, 250);
          //console.log(timeout);
-    }, [html,css,js,setCode]);
+    }, [html,css,js,title,setCode]);
 
 
     
@@ -54,12 +56,16 @@ const Specific = () => {
                     setHtml(data.html);
                     setJs(data.js);
                     setCss(data.css);
+                    setTitle(data.title);
                 }
                 else{
                     alert(data.message);
                     if(data.message==="Invalid Token"){
                         history.push('/login');
                         localStorage.removeItem('auth-token');
+                    }
+                    else if(res.status===404){
+                        history.push('/user');
                     }
                 }
             }catch(err){
@@ -71,7 +77,7 @@ const Specific = () => {
   
 
     const onSave=async()=>{
-        const req={_id,html,js,css};
+        const req={html,js,css};
         try{
           const res = await fetch('http://localhost:8000/editor/'+_id,{
                 method:'PUT',
@@ -96,6 +102,28 @@ const Specific = () => {
 
     const onDelete=async()=>{
         console.log('delete');
+        try{
+            const res = await fetch('http://localhost:8000/editor/'+_id,{
+                  method:'DELETE',
+                  headers:{
+                    'Content-type': 'application/json',
+                    'auth-token':localStorage.getItem('auth-token')
+                  }
+              });
+              if(res.ok){
+                  const data = await res.json();
+                  if(!data) alert('Sorry, Unable to Delete');
+                  else {
+                      alert('Deleted');
+                      history.push('/user');
+                  }
+              }
+              else{
+                  alert('Error');
+              }
+          }catch(err){
+            console.log(err);
+        }
     }
 
     return (
