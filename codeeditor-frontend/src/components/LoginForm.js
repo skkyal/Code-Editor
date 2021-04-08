@@ -28,6 +28,9 @@ const LoginForm = ({email,setEmail,setRegister}) => {
                     localStorage.setItem('auth-name',data.name);
                 }
             }
+            else{
+                alert(data.message);
+            }
             console.log(data);
         }catch(err){
             console.log(err);

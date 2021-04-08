@@ -46,6 +46,13 @@ const CodeList = () => {
         });
     }
 
+    const getTitle=(data)=>{
+        if(data.length<=20) return data;
+        let a = data.substring(1,20);
+        a=a+'...';
+        return a;
+    }
+
     return (
         <div>
             <Nav />
@@ -70,7 +77,7 @@ const CodeList = () => {
                     {list.map((item)=>
                         <Link to ={`/user/${item._id}`} key={item._id} style={{textDecoration:'none',color:'white'}}>
                             <div className="codelist-item" >
-                                {item.title}
+                                {getTitle(item.title)}
                             </div>
                         </Link>
                     )}

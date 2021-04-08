@@ -16,10 +16,12 @@ const RegisterForm = ({setRegister,email,setEmail}) => {
                 },
                 body: JSON.stringify(req)
             });
-            if(res.ok)
-            setRegister(true);
+            
             const data = await res.json();
             console.log(data);
+            if(res.ok)
+            setRegister(true);
+            else alert(data.message);
         }catch(err){
         console.log(err);
         }

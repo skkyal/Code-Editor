@@ -32,13 +32,6 @@ const Specific = () => {
           setCode(code);
          }, 250);
          //console.log(timeout);
-         return ()=>{
-            setHtml('');
-            setCss('');
-            setJs('');
-            setTitle('');
-            setCode('');
-        }
     }, [html,css,js,title,setCode]);
 
 

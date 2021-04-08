@@ -33,9 +33,7 @@ const MainEditor = () => {
         setTitle(location.state.title);
         else setTitle(random);
 
-        return ()=>{
-            setTitle('');
-        }
+        
     }, [history,location]);
 
     useEffect(() => {
@@ -56,11 +54,6 @@ const MainEditor = () => {
             }, 250);
             //console.log(timeout);
         return ()=>{
-            setHtml('');
-            setCss('');
-            setJs('');
-            setTitle('');
-            setCode('');
         }
     }, [html,css,js,title,setCode]);
 

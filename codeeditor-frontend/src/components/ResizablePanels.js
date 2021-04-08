@@ -1,5 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React,{createRef} from 'react'
 class ResizablePanels extends React.Component {
     eventHandler = null
   
@@ -13,11 +12,12 @@ class ResizablePanels extends React.Component {
     }
   
     componentDidMount () {
-      ReactDOM.findDOMNode(this).addEventListener('mousemove', this.resizePanel)
-      ReactDOM.findDOMNode(this).addEventListener('mouseup', this.stopResize)
-      ReactDOM.findDOMNode(this).addEventListener('mouseleave', this.stopResize)
+      const node=this.wrapper.current;
+      node.addEventListener('mousemove', this.resizePanel)
+      node.addEventListener('mouseup', this.stopResize)
+      node.addEventListener('mouseleave', this.stopResize)
     }
-    
+    wrapper=createRef();
     startResize = (event, index) => {
       this.setState({
         isDragging: true,
@@ -54,7 +54,7 @@ class ResizablePanels extends React.Component {
     render() {
       const rest = this.props.children.slice(1)
       return (
-        <div className="panel-container" onMouseUp={() => this.stopResize()}>
+        <div ref={this.wrapper} className="panel-container" onMouseUp={() => this.stopResize()}>
           <div className="panel" style={{width: `calc(100% - ${this.state.panels[1]}px - ${this.state.panels[2]}px)`}}>
             {this.props.children[0]}
           </div>
