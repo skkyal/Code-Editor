@@ -1,21 +1,26 @@
 import React from 'react'
 import Editor from '../components/Editor'
 import Nav from '../components/Nav'
+import SaveModal from '../components/SaveModal'
 import {useState,useEffect} from 'react'
-import {useHistory,useLocation} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
+
 
 const MainEditor = () => {
     const history=useHistory();
-    const location=useLocation();
+   // const location=useLocation();
 
     const [code, setCode] = useState('');
     const [js, setJs] = useState('');
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
+    const [title, setTitle] = useState('Untitled');
+    const [access,setAccess] = useState(1);
 
-    const [title, setTitle] = useState('');
+    const [saveModel,setSaveModel] = useState(false);
+    const [valid,setValid] = useState(false);
 
-    const random=()=>{
+    /*const random=()=>{
         var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var result = '';
         for ( var i = 0; i <5; i++ ) {
@@ -25,22 +30,20 @@ const MainEditor = () => {
     };
     
     useEffect(() => {
+        if(location.state && location.state.title!=="")
+        setTitle(location.state.title);
+        else setTitle(random);
+    }, [history,location]);*/
+
+    useEffect(() => {
         if(localStorage.getItem('auth-token')===null){
             history.push('/login');
             return;
         }
-        if(location.state && location.state.title!=="")
-        setTitle(location.state.title);
-        else setTitle(random);
-
-        
-    }, [history,location]);
-
-    useEffect(() => {
         const code=`
         <html>
         <head>
-            <title>${title}</title>
+            <title>Untitled</title>
             <style>${css}</style>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         </head>
@@ -53,12 +56,11 @@ const MainEditor = () => {
             setCode(code);
             }, 250);
             //console.log(timeout);
-        return ()=>{
-        }
-    }, [html,css,js,title,setCode]);
+    }, [html,css,js,title,setCode,history]);
 
     const onSave=async()=>{
-        const req={html,js,css,title};
+        const type=access;
+        const req={html,js,css,title,type};
 
         try{
         const res = await fetch('http://localhost:8000/editor',{
@@ -73,11 +75,17 @@ const MainEditor = () => {
             console.log(data);
             if(res.ok){
                 history.push(`/user/${data.code}`);
+                alert('Saved Successfully');
             }
             else{
-                if(data.message==="Invalid Token")
-                history.push('/login');
-                localStorage.removeItem('auth-token');
+                if(data.message==="Invalid Token"){
+                    history.push('/login');
+                    localStorage.removeItem('auth-token');
+                    alert('You are Logged out. Please Log In again');
+                }
+                else if(res.status===400){
+                    setValid(true);
+                }
             }
             
         }catch(err){
@@ -86,7 +94,12 @@ const MainEditor = () => {
     };
     return (
         <div className="page-container">
-            <Nav onSave={onSave} isDelete={false} isIcon={true} />
+            {
+                saveModel?
+                <SaveModal onSave={onSave} setTitle={setTitle} setSaveModel={setSaveModel} setAccess={setAccess} valid={valid} />
+                :null
+            }
+            <Nav onSave={()=>setSaveModel((prev)=>!prev)} isDelete={false} isIcon={true} />
             <Editor html={html} css={css} js={js} setHtml={setHtml} setCss={setCss} setJs={setJs} />
             <div className="frame">
             <iframe

@@ -4,6 +4,7 @@ import {useHistory,Link} from 'react-router-dom'
 const LoginForm = ({email,setEmail,setRegister}) => {
     const history = useHistory();
     const [password, setPassword] = useState('');
+    const [valid,setValid] = useState(false);
     
     
     const onSubmit=async(e)=>{
@@ -29,7 +30,8 @@ const LoginForm = ({email,setEmail,setRegister}) => {
                 }
             }
             else{
-                alert(data.message);
+                //alert(data.message);
+                setValid(true);
             }
             console.log(data);
         }catch(err){
@@ -39,6 +41,7 @@ const LoginForm = ({email,setEmail,setRegister}) => {
 
     return (
         <div className="login-form-container">
+            { valid?<div style={{color:'red',fontSize:'14px'}}>Enter a valid Email and Password</div>:null }
             <form className="login-form">
                 <input className="form-detail" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
                 <input className="form-detail" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>

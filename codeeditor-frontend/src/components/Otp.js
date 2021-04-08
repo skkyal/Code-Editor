@@ -5,6 +5,7 @@ const Otp = ({email,setRegister}) => {
     const history = useHistory();
 
     const [otp, setOtp] = useState('');
+    const [valid,setValid] = useState(false);
 
     const onSubmit=async(e)=>{
         e.preventDefault();
@@ -17,13 +18,16 @@ const Otp = ({email,setRegister}) => {
                 },
                 body: JSON.stringify(req)
             });
+            //const data = await res.json();
+            //alert(data.message);
             if(res.ok){
                 setRegister(false);
                 history.push('/user');
             }
-            const data = await res.json();
-            alert(data.message);
-            console.log(data);
+            else{
+                setValid(true);
+            }
+            
         }catch(err){
         console.log(err);
         }
@@ -34,6 +38,7 @@ const Otp = ({email,setRegister}) => {
                 <input className="form-detail" type="text" value={otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter OTP" />
                 <button className="form-button" onClick={onSubmit} >Submit</button>
             </form>
+            { valid?<div style={{color:'red',fontSize:'14px'}}>Enter Valid OTP</div>:null }
         </div>
     )
 }

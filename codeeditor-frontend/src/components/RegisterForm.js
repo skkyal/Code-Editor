@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 const RegisterForm = ({setRegister,email,setEmail}) => {
     const [name,setName] = useState('');
     const [password, setPassword] = useState('');
+    const [valid,setValid] = useState(false);
 
     const onSubmit=async(e)=>{
         e.preventDefault();
@@ -19,11 +20,15 @@ const RegisterForm = ({setRegister,email,setEmail}) => {
             
             const data = await res.json();
             console.log(data);
-            if(res.ok)
-            setRegister(true);
-            else alert(data.message);
+            if(res.ok){
+                setRegister(true);
+            }
+            else {
+               // alert(data.message);
+               setValid(true);
+            }
         }catch(err){
-        console.log(err);
+            console.log(err);
         }
     }
     return (
@@ -35,6 +40,15 @@ const RegisterForm = ({setRegister,email,setEmail}) => {
                 <button className="form-button" onClick={onSubmit}>Register</button>
                 <p className="login-message">Have account? <Link to="/login">Log In</Link></p>
             </form>
+            {   
+                valid?
+                <div style={{color:'red',fontSize:'14px'}}>
+                    <div>Password length should be atleast 6</div>
+                    <div>Name and Email Cannot be Empty</div>
+                    <div>Email should be unique</div>
+                </div>:null
+            }
+            
         </div>
     )
 }

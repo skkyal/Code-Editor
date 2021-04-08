@@ -60,7 +60,7 @@ router.post('/register',async(req,res)=>{
         const check = await User.findOne({email: req.body.email});
         if(check) return res.status(400).send({"message":"Email Already Exists"});
     }catch(err){
-        console.log(err);
+      //  console.log(err);
         return res.sendStatus(400).send({"message":"Error"}); 
     }
 
@@ -78,12 +78,10 @@ router.post('/register',async(req,res)=>{
     
     //save user
     try{
-        console.log(user);
+       // console.log(user);
         const savedUser = await user.save();
        // email=res.body.email;
         otp=otpGenerate(req.body.email);
-
-
         return res.status(201).send({user: user._id});
     }catch(err){
         return res.status(400).send(err);

@@ -11,7 +11,7 @@ module.exports = function (req,res,next){
         //console.log(verified);
         next();
     }catch(err){
-        console.log('Token Invalid');
+       // console.log('Token Invalid');
         return res.status(400).send({"message":"Invalid Token"});
     }
 }

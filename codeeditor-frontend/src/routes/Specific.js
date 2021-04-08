@@ -10,29 +10,34 @@ const Specific = () => {
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
     const [title, setTitle] = useState('');
-    
+    const [type, setType] = useState('');
     const {_id}=useParams();
     const history=useHistory();
 
 
     useEffect(() => {
-      const code=`
-      <html>
-      <head>
-          <title>${title}</title>
-          <style>${css}</style>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      </head>
-      <body>
-          ${html}
-      <script>${js}</script>
-      </body>
-      `;
-      setTimeout(() => {
-          setCode(code);
-         }, 250);
+        if(localStorage.getItem('auth-token')===null){
+            history.push('/login');
+        }
+        else{
+        const code=`
+        <html>
+        <head>
+            <title>${title}</title>
+            <style>${css}</style>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        </head>
+        <body>
+            ${html}
+        <script>${js}</script>
+        </body>
+        `;
+        setTimeout(() => {
+            setCode(code);
+            }, 250);
+        }
          //console.log(timeout);
-    }, [html,css,js,title,setCode]);
+    }, [html,css,js,title,setCode,history]);
 
 
     
@@ -40,40 +45,47 @@ const Specific = () => {
 
         if(localStorage.getItem('auth-token')===null){
             history.push('/login');
-            return;
         }
-        const fetchCode = async()=>{
-            try{
-                const res = await fetch('http://localhost:8000/editor/'+_id,{
-                    method:'GET',
-                    headers:{
-                    'Content-type': 'application/json',
-                    'auth-token':localStorage.getItem('auth-token')
+        else{
+            const fetchCode = async()=>{
+                try{
+                    const res = await fetch('http://localhost:8000/editor/'+_id,{
+                        method:'GET',
+                        headers:{
+                        'Content-type': 'application/json',
+                        'auth-token':localStorage.getItem('auth-token')
+                        }
+                    });
+                    const data = await res.json();
+                    console.log(data);
+                    if(res.ok){
+                        setHtml(data.html);
+                        setJs(data.js);
+                        setCss(data.css);
+                        setTitle(data.title);
+                        setType(data.type);
                     }
-                });
-                const data = await res.json();
-                console.log(data);
-                if(res.ok){
-                    setHtml(data.html);
-                    setJs(data.js);
-                    setCss(data.css);
-                    setTitle(data.title);
+                    else{
+                        if(data.message==="Invalid Token"){
+                            history.push('/login');
+                            localStorage.removeItem('auth-token');
+                            alert('You are Logged out. Please Log In again');
+                        }
+                        else if(res.status===404){
+                            alert('No Such File Found')
+                            history.push('/user');
+                        }
+                        else {
+                            history.push('/user');
+                        }
+                    }
+                }catch(err){
+                    console.log(err);
                 }
-                else{
-                    alert(data.message);
-                    if(data.message==="Invalid Token"){
-                        history.push('/login');
-                        localStorage.removeItem('auth-token');
-                    }
-                    else if(res.status===404){
-                        history.push('/user');
-                    }
-                }
-            }catch(err){
-                console.log(err);
-            }
-        };
-        fetchCode();
+            
+            };
+            fetchCode();
+        }
     }, [_id,history]);
   
 
@@ -91,10 +103,10 @@ const Specific = () => {
             if(res.ok){
                 const data = await res.json();
                 if(!data) alert('Sorry, Unable to Update');
-                else alert('Updated');
+                else alert('Updated Successfully');
             }
             else{
-                alert('Error');
+                alert('Some Error Occured');
             }
         }catch(err){
           console.log(err);
@@ -115,12 +127,13 @@ const Specific = () => {
                   const data = await res.json();
                   if(!data) alert('Sorry, Unable to Delete');
                   else {
-                      alert('Deleted');
+                      alert('Deleted Successfully');
                       history.push('/user');
                   }
               }
               else{
-                  alert('Error');
+                  if(res.status===404) 
+                  alert('You are not Authorized to Delete');
               }
           }catch(err){
             console.log(err);
@@ -129,7 +142,7 @@ const Specific = () => {
 
     return (
       <div className="page-container">
-        <Nav onSave={onSave} isDelete={true} isIcon={true} onDelete={onDelete} />
+        <Nav onSave={onSave} isDelete={true} isIcon={true} onDelete={onDelete} type={type} />
         <Editor html={html} css={css} js={js} setHtml={setHtml} setCss={setCss} setJs={setJs} />
         <div className="frame">
           <iframe

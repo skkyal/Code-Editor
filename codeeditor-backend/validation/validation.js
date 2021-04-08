@@ -20,6 +20,15 @@ const loginValidation = (data) =>{
     return schema.validate(data);
 }
 
+//editorValidation
+const editorValidation = (data) =>{
+    const schema=Joi.object({
+        title: Joi.string().required(),
+    }).unknown();
+    return schema.validate(data);
+}
+
 
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.editorValidation = editorValidation;
