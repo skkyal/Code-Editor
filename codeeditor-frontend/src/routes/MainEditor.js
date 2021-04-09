@@ -61,9 +61,9 @@ const MainEditor = () => {
     const onSave=async()=>{
         const type=access;
         const req={html,js,css,title,type};
-        console.log(title,type);
+      //  console.log(title,type);
         try{
-        const res = await fetch('http://localhost:8000/editor',{
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL+'/editor',{
                 method:'POST',
                 headers:{
                 'Content-type': 'application/json',
@@ -72,7 +72,7 @@ const MainEditor = () => {
                 body: JSON.stringify(req)
             });
             const data = await res.json();
-            console.log(data);
+         //   console.log(data);
             if(res.ok){
                 history.push(`/user/${data.code}`);
                 alert('Saved Successfully');

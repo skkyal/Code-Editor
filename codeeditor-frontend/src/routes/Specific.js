@@ -49,7 +49,7 @@ const Specific = () => {
         else{
             const fetchCode = async()=>{
                 try{
-                    const res = await fetch('http://localhost:8000/editor/'+_id,{
+                    const res = await fetch(process.env.REACT_APP_BACKEND_URL+'/editor/'+_id,{
                         method:'GET',
                         headers:{
                         'Content-type': 'application/json',
@@ -57,7 +57,7 @@ const Specific = () => {
                         }
                     });
                     const data = await res.json();
-                    console.log(data);
+                 //   console.log(data);
                     if(res.ok){
                         setHtml(data.html);
                         setJs(data.js);
@@ -93,7 +93,7 @@ const Specific = () => {
     const onSave=async()=>{
         const req={html,js,css};
         try{
-          const res = await fetch('http://localhost:8000/editor/'+_id,{
+          const res = await fetch(process.env.REACT_APP_BACKEND_URL+'/editor/'+_id,{
                 method:'PUT',
                 headers:{
                   'Content-type': 'application/json',
@@ -118,9 +118,9 @@ const Specific = () => {
     };
 
     const onDelete=async()=>{
-        console.log('delete');
+       // console.log('delete');
         try{
-            const res = await fetch('http://localhost:8000/editor/'+_id,{
+            const res = await fetch(process.env.REACT_APP_BACKEND_URL+'/editor/'+_id,{
                   method:'DELETE',
                   headers:{
                     'Content-type': 'application/json',

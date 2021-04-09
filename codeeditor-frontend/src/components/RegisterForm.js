@@ -10,7 +10,7 @@ const RegisterForm = ({setRegister,email,setEmail}) => {
         e.preventDefault();
         const req={name,email,password}
         try{
-        const res = await fetch('http://localhost:8000/user/register',{
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL+'/user/register',{
                 method:'POST',
                 headers:{
                 'Content-type': 'application/json',
@@ -18,8 +18,8 @@ const RegisterForm = ({setRegister,email,setEmail}) => {
                 body: JSON.stringify(req)
             });
             
-            const data = await res.json();
-            console.log(data);
+            //const data = await res.json();
+           // console.log(data);
             if(res.ok){
                 setRegister(true);
             }

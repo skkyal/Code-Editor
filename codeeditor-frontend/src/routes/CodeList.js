@@ -14,7 +14,7 @@ const CodeList = () => {
         else{
         const fetchList = async()=>{
             try{
-                const res=await fetch('http://localhost:8000/editor',{
+                const res=await fetch(process.env.REACT_APP_BACKEND_URL+'/editor',{
                         method:'GET',
                         headers:{
                         'Content-type': 'application/json',

@@ -11,7 +11,7 @@ const LoginForm = ({email,setEmail,setRegister}) => {
         e.preventDefault();
         const req={email,password}
         try{
-        const res = await fetch('http://localhost:8000/user/login',{
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL+'/user/login',{
                 method:'POST',
                 headers:{
                 'Content-type': 'application/json',
@@ -33,7 +33,7 @@ const LoginForm = ({email,setEmail,setRegister}) => {
                 //alert(data.message);
                 setValid(true);
             }
-            console.log(data);
+            //console.log(data);
         }catch(err){
             console.log(err);
         }

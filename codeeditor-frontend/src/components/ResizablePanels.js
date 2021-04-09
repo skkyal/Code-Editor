@@ -28,7 +28,7 @@ class ResizablePanels extends React.Component {
     
     stopResize = () => {
       if (this.state.isDragging) {
-        console.log(this.state)
+       // console.log(this.state)
         this.setState(({panels, currentPanel, delta}) => ({
           isDragging: false,
           panels: {

@@ -11,7 +11,7 @@ const Otp = ({email,setRegister}) => {
         e.preventDefault();
         const req={email,otp};
         try{
-        const res = await fetch('http://localhost:8000/user/register/otp',{
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL+'user/register/otp',{
                 method:'POST',
                 headers:{
                 'Content-type': 'application/json',

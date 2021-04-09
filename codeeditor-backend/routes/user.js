@@ -32,7 +32,7 @@ router.post('/login', async (req,res)=>{
     const token= jwt.sign({_id : user._id },process.env.TOKEN_SECRET,{ expiresIn: '24h' });
     res.header('auth-token',token).send(JSON.stringify({token,name}));
 });
-    
+  
 router.post('/register/otp',async(req,res)=>{
  //   if(email!== req.body.email) return res.sendStatus(400).send({"message":"Error"});
 
