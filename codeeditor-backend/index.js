@@ -13,7 +13,7 @@ app.use('/user',require('./routes/user'));
 const port = process.env.PORT || "8000";
 
 /*database connection*/
-mongoose.connect('mongodb://localhost:27017/CodeEditor',{ useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: true });
 const con = mongoose.connection;
 con.on('open',function(){
     console.log('Database Connected');

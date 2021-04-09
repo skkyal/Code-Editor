@@ -75,7 +75,8 @@ const Specific = () => {
                             alert('No Such File Found')
                             history.push('/user');
                         }
-                        else {
+                        else if(403){
+                            alert('You are not Authorized');
                             history.push('/user');
                         }
                     }
@@ -105,8 +106,11 @@ const Specific = () => {
                 if(!data) alert('Sorry, Unable to Update');
                 else alert('Updated Successfully');
             }
-            else{
-                alert('Some Error Occured');
+            else if(res.status===403){
+                alert('You cannot update the Code');
+            }
+            else if(res.status===404){
+                alert('File not Found');
             }
         }catch(err){
           console.log(err);
@@ -132,7 +136,7 @@ const Specific = () => {
                   }
               }
               else{
-                  if(res.status===404) 
+                  if(res.status===403) 
                   alert('You are not Authorized to Delete');
               }
           }catch(err){

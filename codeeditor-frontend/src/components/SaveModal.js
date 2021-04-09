@@ -1,6 +1,12 @@
-import React from 'react'
 
-const SaveModal = ({onSave,setTitle,setSaveModel,setAccess,valid}) => {
+import React, { useEffect } from 'react'
+
+const SaveModal = ({onSave,setTitle,setSaveModel,setAccess,access,valid}) => {
+
+    useEffect(() => {
+        setAccess(1);
+    },[setAccess]);
+
     const changePublic=(e)=>{
         if(e.target.checked)
         setAccess(1);
@@ -8,6 +14,10 @@ const SaveModal = ({onSave,setTitle,setSaveModel,setAccess,valid}) => {
     const changePrivate=(e)=>{
         if(e.target.checked)
         setAccess(0);
+    }
+    const changeViewonly=(e)=>{
+        if(e.target.checked)
+        setAccess(2);
     }
 
     return (
@@ -17,8 +27,11 @@ const SaveModal = ({onSave,setTitle,setSaveModel,setAccess,valid}) => {
                 { valid?<div style={{color:'red',fontSize:'14px'}}>Enter a Title</div>:null }
                 <input className="savemodel-title" type="text" placeholder="Enter Title" onChange={(e)=>setTitle(e.target.value)}></input>
                 <div className="savemodel-checkbox">
-                    <input type="radio" id="public" name="type" value="public" checked='checked' onChange={changePublic}></input>
+                    <input type="radio" id="public" name="type" value="public" defaultChecked onChange={changePublic}></input>
                     <label htmlFor="public">Public</label>
+                    <span>    </span>
+                    <input type="radio" id="viewonly" name="type" value="viewonly" onChange={changeViewonly}></input>
+                    <label htmlFor="viewonly">View-only</label>
                     <span>    </span>
                     <input type="radio" id="private" name="type" value="private" onChange={changePrivate}></input>
                     <label htmlFor="private">Private</label>

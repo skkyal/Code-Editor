@@ -14,7 +14,7 @@ const MainEditor = () => {
     const [js, setJs] = useState('');
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
-    const [title, setTitle] = useState('Untitled');
+    const [title, setTitle] = useState('');
     const [access,setAccess] = useState(1);
 
     const [saveModel,setSaveModel] = useState(false);
@@ -56,12 +56,12 @@ const MainEditor = () => {
             setCode(code);
             }, 250);
             //console.log(timeout);
-    }, [html,css,js,title,setCode,history]);
+    }, [html,css,js,setCode,history]);
 
     const onSave=async()=>{
         const type=access;
         const req={html,js,css,title,type};
-
+        console.log(title,type);
         try{
         const res = await fetch('http://localhost:8000/editor',{
                 method:'POST',
@@ -96,7 +96,7 @@ const MainEditor = () => {
         <div className="page-container">
             {
                 saveModel?
-                <SaveModal onSave={onSave} setTitle={setTitle} setSaveModel={setSaveModel} setAccess={setAccess} valid={valid} />
+                <SaveModal onSave={onSave} setTitle={setTitle} setSaveModel={setSaveModel} setAccess={setAccess} access={access} valid={valid} />
                 :null
             }
             <Nav onSave={()=>setSaveModel((prev)=>!prev)} isDelete={false} isIcon={true} />
