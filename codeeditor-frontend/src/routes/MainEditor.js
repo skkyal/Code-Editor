@@ -23,6 +23,7 @@ const MainEditor = () => {
   const [valid, setValid] = useState(false);
 
   const [loader, setLoader] = useState(false);
+  const [height, setHeight] = useState(false);
 
   /*const random=()=>{
         var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -125,6 +126,7 @@ const MainEditor = () => {
             onSave={() => setSaveModel((prev) => !prev)}
             isDelete={false}
             isIcon={true}
+            setHeight={setHeight}
           />
           <Editor
             html={html}
@@ -134,7 +136,7 @@ const MainEditor = () => {
             setCss={setCss}
             setJs={setJs}
           />
-          <div className="frame">
+          <div className="frame" style={{ height: height ? "100vh" : "39vh" }}>
             <iframe
               srcDoc={code}
               title="Document"

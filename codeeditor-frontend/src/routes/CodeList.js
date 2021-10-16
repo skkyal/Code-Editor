@@ -48,46 +48,58 @@ const CodeList = () => {
     history.push("/editor");
   };
 
-  const getTitle = (data) => {
+  /*const getTitle = (data) => {
     if (data.length <= 20) return data;
-    let a = data.substring(1, 20);
+    let a = data.substring(0, 20);
     a = a + "...";
-    return a;
-  };
+    return data;
+  };*/
 
   return (
     <div>
       <Nav />
       <div>
-        <div
-          className="codelist-item-new"
-          onClick={create}
-          style={{ cursor: "pointer" }}
-        >
-          <span>
-            <i className="fas fa-plus"></i> New
-          </span>
+        <div className="codelist-saved">
+          Add New Code
+          <hr />
         </div>
 
-        <div className="codelist-saved">Saved Codes</div>
-
-        {loader ? (
-          <Loader />
-        ) : list.length !== 0 ? (
-          <div className="codelist-list">
-            {list.map((item) => (
-              <Link
-                to={`/user/${item._id}`}
-                key={item._id}
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                <div className="codelist-item">{getTitle(item.title)}</div>
-              </Link>
-            ))}
+        <div style={{ paddingLeft: "100px", paddingRight: "100px" }}>
+          <div
+            className="codelist-item-new"
+            onClick={create}
+            style={{ cursor: "pointer" }}
+          >
+            <span>
+              <i className="fas fa-plus"></i> New
+            </span>
           </div>
-        ) : (
-          <div className="codelist-item-message">No Saved Code</div>
-        )}
+        </div>
+
+        <div className="codelist-saved">
+          Saved Codes
+          <hr />
+        </div>
+
+        <div style={{ paddingLeft: "100px", paddingRight: "100px" }}>
+          {loader ? (
+            <Loader />
+          ) : list.length !== 0 ? (
+            <div className="codelist-list">
+              {list.map((item) => (
+                <Link
+                  to={`/user/${item._id}`}
+                  key={item._id}
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  <div className="codelist-item">{item.title}</div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="codelist-item-message">No Saved Code</div>
+          )}
+        </div>
       </div>
     </div>
   );

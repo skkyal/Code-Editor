@@ -14,6 +14,7 @@ const Specific = () => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [loader, setLoader] = useState(true);
+  const [height, setHeight] = useState(false);
   const { _id } = useParams();
   const history = useHistory();
 
@@ -170,6 +171,7 @@ const Specific = () => {
             isIcon={true}
             onDelete={onDelete}
             type={type}
+            setHeight={setHeight}
           />
           <Editor
             html={html}
@@ -179,7 +181,7 @@ const Specific = () => {
             setCss={setCss}
             setJs={setJs}
           />
-          <div className="frame">
+          <div className="frame" style={{ height: height ? "100vh" : "39vh" }}>
             <iframe
               srcDoc={code}
               title="Document"

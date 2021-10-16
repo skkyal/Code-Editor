@@ -19,7 +19,7 @@ html {
 
 /*navbar*/
 .navbar {
-  background-color: rgb(236, 235, 235);
+  background-color: #eef1ef; /*rgb(236, 235, 235);*/
   margin: 0;
   padding: 15px;
   font-size: 30px;
@@ -63,6 +63,7 @@ html {
 .page-container {
   background-color: rgb(36, 35, 35);
   height: 100vh;
+  max-height: 100vh;
 }
 
 /*Code Editor*/
@@ -91,7 +92,6 @@ html {
   position: relative;
   background-color: rgb(36, 35, 35);
   padding: 10px;
-  height: 46vh;
 }
 iframe {
   position: relative;
@@ -301,6 +301,9 @@ iframe {
 
 .codelist-item {
   padding: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border-radius: 5px;
   background-color: rgb(0, 9, 36);
   margin: 20px 10px;
@@ -316,9 +319,12 @@ iframe {
   color: gray;
 }
 .codelist-saved {
-  margin-left: 10px;
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+
   color: rgb(120, 128, 150);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 /*save model*/
@@ -347,6 +353,7 @@ iframe {
   outline: 0;
   background: #031b4e;
   width: 60px;
+  border-radius: 5%;
   text-align: center;
   border: 0;
   padding: 15px;
