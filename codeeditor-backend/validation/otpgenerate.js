@@ -87,13 +87,16 @@ module.exports = function (email) {
   sendEmail({
     from: process.env.ACCEMAIL,
     to: email,
-    subject: "Otp for registration is: ",
+    subject: "OTP for registration in CodeEditor is: ",
     html:
-      "<h3>OTP for account verification is </h3>" +
+      "<h3>OTP for account verification is in CodeEditor Website is</h3>" +
       "<h1 style='font-weight:bold;'>" +
       otp +
-      "</h1>", // html body
+      "</h1>" +
+      "<div>This OTP is valid for only 10 minutes</div>", // html body
   });
 
   return otp;
 };
+
+//Refer to this: https://dev.to/chandrapantachhetri/sending-emails-securely-using-node-js-nodemailer-smtp-gmail-and-oauth2-g3a

@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   verified: { type: Boolean, default: false },
   date: { type: Date, default: Date.now() },
+  otp: { type: Number },
+  otpExpiresOn: { type: Date },
 });
 
 module.exports = mongoose.model("user", userSchema);

@@ -9,6 +9,7 @@ const Otp = ({ email, setRegister }) => {
   const [otp, setOtp] = useState("");
   const [valid, setValid] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [message, setMessage] = useState("Error Occurred");
 
   useEffect(() => {
     toast("Please Enter OTP sent to your Email");
@@ -31,7 +32,7 @@ const Otp = ({ email, setRegister }) => {
           body: JSON.stringify(req),
         }
       );
-      //const data = await res.json();
+      const data = await res.json();
       //alert(data.message);
       setLoader(false);
 
@@ -41,6 +42,7 @@ const Otp = ({ email, setRegister }) => {
         toast("Please Login Again");
         history.push("/user");
       } else {
+        setMessage(data.message);
         setValid(true);
       }
     } catch (err) {
@@ -63,7 +65,7 @@ const Otp = ({ email, setRegister }) => {
         </button>
       </form>
       {valid ? (
-        <div style={{ color: "red", fontSize: "14px" }}>Enter Valid OTP</div>
+        <div style={{ color: "red", fontSize: "14px" }}>{message}</div>
       ) : null}
     </div>
   );
