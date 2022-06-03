@@ -117,6 +117,7 @@ router.post("/register", async (req, res) => {
   const otp = otpGenerate(req.body.email);
 
   if (!otp) {
+    console.log("Error in otp");
     return res.status(400).send({ message: "error occured with mail system" });
   }
 
