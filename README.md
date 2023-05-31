@@ -1,7 +1,12 @@
 This is a CodeEditor which helps the user to write and edit code (javascript, html ,css).
-It also has OTP based authentication.
+User Can also Share the code link. There are three options: Private, Public, ReadOnly
+It also has OTP based authentication, which is implemented with the help of nodemailer package
 
-Tech Stack used are ReactJs in Frontend and NodeJs ExpressJs in BackEnd.
-Database used is MongoDB
+Tech Stack:
+- Frontend: ReactJs
+- Backend: NodeJs, ExpressJs
+- Database: MongoDB
+
+The backend is hosted on Vercel and frontend is hosted on Netlify
 
 Website: https://code-editor-shlok.netlify.app/
